@@ -2,17 +2,16 @@ package com.zzqa.ds7000.service.impl;
 
 import com.zzqa.ds7000.DS7000Application;
 import com.zzqa.ds7000.pojo.Head7000;
-import com.zzqa.ds7000.pojo.Monitor_data_head;
-import com.zzqa.ds7000.pojo.Procss_data;
-import com.zzqa.ds7000.pojo.Vib_data;
+import com.zzqa.ds7000.pojo.Upgrade_file_info;
 import com.zzqa.ds7000.service.interfaces.ISendToDgm;
 import com.zzqa.ds7000.util.FormatTransfer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletResponse;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ClassName: SendToDgmDS7000
@@ -23,6 +22,9 @@ import java.util.Map;
  */
 @Service
 public class SendToDgmDS7000 implements ISendToDgm {
+    public static ThreadLocal<Integer> update_status = new ThreadLocal<>();
+    public static ThreadLocal<Integer> upgrade_status = new ThreadLocal<>();
+//    private int config_status = 0;
 
     /**
      * 发送时间
@@ -98,5 +100,74 @@ public class SendToDgmDS7000 implements ISendToDgm {
         return bool;
     }
 
+    /**
+     * 向采集器发送配置信息等
+     *
+     * @param response ServletResponse
+     * @param head7000 请求头
+     */
+    @Override
+    public void sendDgmTask(ServletResponse response, Head7000 head7000) {
+        byte[] data = null;
+        if (head7000 == null){
+            head7000 = new Head7000();
+            head7000.setErrorCode(1000);
+            head7000.setProtocolID(255);
+            conn(response, null, head7000, 0);
+        }
+        head7000.setErrorCode(0);
+        try {
+            //服务器更新了采集器配置
+            if (update_status.get() == 1){
+                head7000.setProtocolID(3);//TODO
+            }
+            if (upgrade_status.get() == 1){
+                head7000.setProtocolID(8);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                DataOutputStream dos = new DataOutputStream(baos);
+                //从CMC获取升级内容
+                List<Upgrade_file_info> upgradeList = new ArrayList<>();//TODO
+                if (upgradeList == null || upgradeList.size() == 0){
+                    head7000.setProtocolID(255);
+                    conn(response, null, head7000, 0);
+                    return;
+                }
+                head7000.setAppDataNum(upgradeList.size());
+                for (Upgrade_file_info upgrade_file_info:upgradeList){
+                    dos.writeInt(upgrade_file_info.getDwStructLen());
+                    dos.writeShort(upgrade_file_info.getFileTotal());
+                    dos.writeShort(upgrade_file_info.getSquenceNo());
+                    dos.writeShort(upgrade_file_info.getFileNameLen());
+                    dos.write(upgrade_file_info.getFile_name());
+                    dos.writeShort(upgrade_file_info.getDestDirLen());
+                    dos.write(upgrade_file_info.getDest_dir());
+                    dos.writeShort(upgrade_file_info.getFile_ver());
+                    dos.writeByte(upgrade_file_info.getFile_groupId());
+                    dos.writeByte(upgrade_file_info.getIf_exec());
+                    dos.writeByte(upgrade_file_info.getIf_forced());
+                    dos.writeByte(upgrade_file_info.getIf_restarted());
+                    dos.writeByte(upgrade_file_info.getIf_crc());
+                    dos.writeInt(upgrade_file_info.getDwFileCrc());
+                    dos.writeInt(upgrade_file_info.getFile_len());
+                    dos.write(upgrade_file_info.getFileStream());
+                }
+                data = baos.toByteArray();
+                dos.flush();
+                dos.close();
+                baos.flush();
+                baos.close();
+                //发送数据
+                boolean conn = conn(response, data, head7000, head7000.getAppDataNum());
+                //下面不能加外面的条件，否则这个如果一直执行失败后面的if中都无法执行
+//                if (conn){
+                    upgrade_status.set(0);
+//                }
 
+            }
+        } catch (Exception e){
+            DS7000Application.LOGGER.error(Thread.currentThread().getStackTrace()[1].getClassName(),e);
+            head7000.setErrorCode(1999);
+            conn(response, null, head7000, 0);
+        }
+    }
 }

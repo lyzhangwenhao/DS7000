@@ -12,6 +12,7 @@ import javax.servlet.ServletResponse;
  * @date 2021/1/12 13:50
  */
 public interface ISendToDgm {
+
     /**
      * 发送时间
      * @param response  ServletResponse
@@ -28,6 +29,13 @@ public interface ISendToDgm {
      * @return 返回结果
      */
     boolean conn(ServletResponse response, byte[] data, Head7000 head7000, int appDataNum);
+
+    /**
+     * 向采集器发送配置信息等
+     * @param response  ServletResponse
+     * @param head7000 请求头
+     */
+    void sendDgmTask(ServletResponse response, Head7000 head7000);
 
 
 }

@@ -10,6 +10,7 @@ class Ds7000ApplicationTests {
 
     @Test
     void contextLoads() throws Exception{
+        System.out.println("123");
     }
 
 }

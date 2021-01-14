@@ -58,6 +58,7 @@ public class ControlCenter {
                 case 3:     //客户端修改DAU设置，需要同步到DAU
                     break;
                 case 4:     //DAU向服务器获取DAU设置
+                    DS7000Application.LOGGER.info(Thread.currentThread().getStackTrace()[1].getClassName()+":获取DAU设置");
                     break;
                 case 6:     //subPid=-:DAU向服务器传送DAU运行日记代码；subPid=2:机泵DAU向服务器传送日志代码，服务器需要加上时间标签
                     DS7000Application.LOGGER.info(Thread.currentThread().getStackTrace()[1].getClassName()+":传递DAU运行日记代码");
@@ -70,6 +71,7 @@ public class ControlCenter {
                     DS7000Application.LOGGER.info(Thread.currentThread().getStackTrace()[1].getClassName()+":传递DAU启停索引记录");
                     code = iSaveData.saveData(head7000);
                     //返回Head
+                    head7000.setErrorCode(code);
                     iSendToDgm.conn(response, null, head7000, 0);
                     break;
                 case 8:     //服务器返回DAU各类型软件(升级功能)
@@ -84,6 +86,8 @@ public class ControlCenter {
                 case 10:    //DAU向服务器传递DAU设置，服务器更新振动测点的GAP电压
                     break;
                 case 255:   //心跳包协议，发一个协议头
+                    DS7000Application.LOGGER.info(Thread.currentThread().getStackTrace()[1].getClassName()+":心跳包");
+                    iSendToDgm.sendDgmTask(response, head7000);
                     break;
                 default:
                     break;
