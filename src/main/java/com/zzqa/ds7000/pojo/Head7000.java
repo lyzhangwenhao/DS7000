@@ -34,7 +34,7 @@ public class Head7000 {
     }
 
     public Head7000(DataInputStream dis) throws IOException {
-        this.headLen = dis.readUnsignedShort();
+        this.headLen = dis.readShort();
         dis.read(guid);
         this.factoryID = dis.readInt();
         DauID = dis.readLong();
@@ -170,6 +170,14 @@ public class Head7000 {
 
     public void setAppDataNum(int appDataNum) {
         this.appDataNum = appDataNum;
+    }
+
+    public byte[] getMaindata() {
+        return maindata;
+    }
+
+    public void setMaindata(byte[] maindata) {
+        this.maindata = maindata;
     }
 }
 

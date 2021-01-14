@@ -28,4 +28,6 @@ public interface ISendToDgm {
      * @return 返回结果
      */
     boolean conn(ServletResponse response, byte[] data, Head7000 head7000, int appDataNum);
+
+
 }

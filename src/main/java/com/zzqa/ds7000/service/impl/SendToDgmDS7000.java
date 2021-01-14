@@ -2,15 +2,17 @@ package com.zzqa.ds7000.service.impl;
 
 import com.zzqa.ds7000.DS7000Application;
 import com.zzqa.ds7000.pojo.Head7000;
+import com.zzqa.ds7000.pojo.Monitor_data_head;
+import com.zzqa.ds7000.pojo.Procss_data;
+import com.zzqa.ds7000.pojo.Vib_data;
 import com.zzqa.ds7000.service.interfaces.ISendToDgm;
 import com.zzqa.ds7000.util.FormatTransfer;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletResponse;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ClassName: SendToDgmDS7000
@@ -95,4 +97,6 @@ public class SendToDgmDS7000 implements ISendToDgm {
         }
         return bool;
     }
+
+
 }
