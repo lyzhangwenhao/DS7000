@@ -11,22 +11,22 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class Upgrade_file_info {
-    int dwStructLen;    //结构长度
-    int fileTotal;      //大于0，一次升级的总文件数
-    int squenceNo;      //文件的序号（取值1~fileTotal）
-    int fileNameLen;    //文件名长度
-    byte[] file_name;   //文件名，ASCII编码，长度为fileNameLen
-    int destDirLen;     //目标文件夹名长度
-    byte[] dest_dir;    //目标文件夹，ASCII编码
-    int file_ver;       //文件的版本号
-    byte file_groupId;  //文件所属的组；0：CPU程序，1：硬件FPGA程序，2：驱动程序，3：其他类型程序
-    byte if_exec;       //是否置可执行标志？0:不执，1：执行
-    byte if_forced;     //是否强制升级？0:不强制，1：强制
-    byte if_restarted;  //0：不重启，1：软件重启，2：硬件复位重启
-    byte if_crc;        //是否做CRC校验，0：不做CRC校验，1：做CRC校验
-    int dwFileCrc;
-    int file_len;       //文件的长度
-    byte[] fileStream;  //长度为file_len
+    private int dwStructLen;    //结构长度
+    private int fileTotal;      //大于0，一次升级的总文件数
+    private int squenceNo;      //文件的序号（取值1~fileTotal）
+    private int fileNameLen;    //文件名长度
+    private byte[] file_name;   //文件名，ASCII编码，长度为fileNameLen
+    private int destDirLen;     //目标文件夹名长度
+    private byte[] dest_dir;    //目标文件夹，ASCII编码
+    private int file_ver;       //文件的版本号
+    private byte file_groupId;  //文件所属的组；0：CPU程序，1：硬件FPGA程序，2：驱动程序，3：其他类型程序
+    private byte if_exec;       //是否置可执行标志？0:不执，1：执行
+    private byte if_forced;     //是否强制升级？0:不强制，1：强制
+    private byte if_restarted;  //0：不重启，1：软件重启，2：硬件复位重启
+    private byte if_crc;        //是否做CRC校验，0：不做CRC校验，1：做CRC校验
+    private int dwFileCrc;
+    private int file_len;       //文件的长度
+    private byte[] fileStream;  //长度为file_len
 
     public Upgrade_file_info() {
     }

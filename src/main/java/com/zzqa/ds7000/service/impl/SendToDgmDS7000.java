@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import javax.servlet.ServletResponse;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName: SendToDgmDS7000
@@ -169,5 +171,69 @@ public class SendToDgmDS7000 implements ISendToDgm {
             head7000.setErrorCode(1999);
             conn(response, null, head7000, 0);
         }
+    }
+
+    /**
+     * 向采集器发送配置
+     *
+     * @param response ServletResponse
+     * @param head7000 请求头
+     */
+    @Override
+    public void sendDgmConfig(ServletResponse response, Head7000 head7000) {
+        if (head7000 == null || head7000.getMaindata() == null) {
+            head7000 = new Head7000();
+            head7000.setProtocolID(4);
+            head7000.setErrorCode(1000);
+            return;
+        }
+        InputStream in = null;
+        DataInputStream dis = null;
+        try {
+            byte[] maindata = head7000.getMaindata();
+            if (maindata == null){
+                head7000 = new Head7000();
+                head7000.setProtocolID(4);
+                head7000.setErrorCode(1000);
+                return;
+            }
+
+            in = new ByteArrayInputStream(maindata);
+            dis = new DataInputStream(in);
+            long nodeId = dis.readLong();
+            //关流
+            dis.close();
+            in.close();
+            //获取采集器设置
+            byte[] data = getDgmConfig(head7000,nodeId);
+
+            conn(response,data,head7000,1 );
+        } catch (Exception e) {
+            DS7000Application.LOGGER.error(Thread.currentThread().getStackTrace()[1].getClassName(), e);
+            head7000.setErrorCode(1999);
+            conn(response, null, head7000, 0);
+        }
+    }
+
+    private byte[] getDgmConfig(Head7000 head7000,long nodeId){
+        byte[] data = null;
+        //TODO 根据条件向CMC获取采集器设置，现假定返回的结果为Map<String,Object>
+        Map<String,Object> dgmConfigMap = new HashMap<>();
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            DataOutputStream dos = new DataOutputStream(baos);
+
+//            dos.writeInt(dgmConfigMap.get("dwStructLen"));
+
+
+            dos.flush();
+            baos.flush();
+            data = baos.toByteArray();
+            dos.close();
+            baos.close();
+        } catch (Exception e){
+            DS7000Application.LOGGER.error(Thread.currentThread().getStackTrace()[1].getClassName(), e);
+        }
+        return data;
     }
 }

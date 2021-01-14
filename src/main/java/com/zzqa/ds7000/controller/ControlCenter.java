@@ -59,6 +59,7 @@ public class ControlCenter {
                     break;
                 case 4:     //DAU向服务器获取DAU设置
                     DS7000Application.LOGGER.info(Thread.currentThread().getStackTrace()[1].getClassName()+":获取DAU设置");
+                    iSendToDgm.sendDgmConfig(response, head7000);
                     break;
                 case 6:     //subPid=-:DAU向服务器传送DAU运行日记代码；subPid=2:机泵DAU向服务器传送日志代码，服务器需要加上时间标签
                     DS7000Application.LOGGER.info(Thread.currentThread().getStackTrace()[1].getClassName()+":传递DAU运行日记代码");

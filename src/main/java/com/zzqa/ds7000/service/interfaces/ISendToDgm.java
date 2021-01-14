@@ -37,5 +37,12 @@ public interface ISendToDgm {
      */
     void sendDgmTask(ServletResponse response, Head7000 head7000);
 
+    /**
+     * 向采集器发送配置
+     * @param response ServletResponse
+     * @param head7000 请求头
+     */
+    void sendDgmConfig(ServletResponse response, Head7000 head7000);
+
 
 }
