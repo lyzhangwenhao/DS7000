@@ -1,21 +1,21 @@
 package com.zzqa.ds7000.dau_cfg;
 
 /**
- * ClassName: TAG_DGT_CFG
- * Description: 数字量测点数据结构描述
+ * ClassName: TAG_PRO_CFG
+ * Description: 过程量测点数据结构描述
  *
  * @author 张文豪
- * @date 2021/1/15 11:46
+ * @date 2021/1/15 15:13
  */
-public class TAG_DGT_CFG {
+public class TAG_PRO_CFG {
     private int dwStructLen;    //字节长度
 
     private C_SYS_NODE_CFG node_cfg;
     private C_TAG_COMMON tag_comm;
 
-    private C_TAG_DGT_CFG digital_tag;
+    private C_TAG_PRO_CFG pro_tag;
 
-    public TAG_DGT_CFG() {
+    public TAG_PRO_CFG() {
     }
 
     public int getDwStructLen() {
@@ -42,11 +42,11 @@ public class TAG_DGT_CFG {
         this.tag_comm = tag_comm;
     }
 
-    public C_TAG_DGT_CFG getDigital_tag() {
-        return digital_tag;
+    public C_TAG_PRO_CFG getPro_tag() {
+        return pro_tag;
     }
 
-    public void setDigital_tag(C_TAG_DGT_CFG digital_tag) {
-        this.digital_tag = digital_tag;
+    public void setPro_tag(C_TAG_PRO_CFG pro_tag) {
+        this.pro_tag = pro_tag;
     }
 }

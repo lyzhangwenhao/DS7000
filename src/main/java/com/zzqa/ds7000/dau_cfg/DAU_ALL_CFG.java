@@ -32,6 +32,31 @@ public class DAU_ALL_CFG {
 
     //数字量测点
     private int dgt_tag_num;
+    private TAG_DGT_CFG dgt_tag;
+
+    //振动测点
+    private int vib_tab_num;
+    private TAG_VIB_CFG vib_tag;
+
+    //过程量测点
+    private int pro_tag_num;
+    private TAG_PRO_CFG pro_tag;
+
+    //Modbus测点
+    private int mdb_tag_num;
+    private TAG_MDB_CFG mdb_tag;
+
+    //测量组
+    private int run_group_num;
+    private RUN_GROUP_CFG run_group;
+
+    //2.0新增的网口通道信息
+    private int wlan_chl_num;
+    private DAU_CHL_WLAN_CFG wlan_chl;
+
+    //2.0新增的Modbus转速通道
+    private int mdb_speed_tag_num;
+    private TAG_MDB_SPEED_CFG mdb_speed_tag;
 
 
 }
