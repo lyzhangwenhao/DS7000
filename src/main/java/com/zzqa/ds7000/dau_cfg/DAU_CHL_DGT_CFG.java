@@ -1,19 +1,19 @@
 package com.zzqa.ds7000.dau_cfg;
 
 /**
- * ClassName: DAU_CHL_PRO_CFG
- * Description: 过程量通道信息数据结构描述
+ * ClassName: DAU_CHL_DGT_CFG
+ * Description: 数字量通道信息数据结构
  *
  * @author 张文豪
- * @date 2021/1/14 17:51
+ * @date 2021/1/15 9:34
  */
-public class DAU_CHL_PRO_CFG {
+public class DAU_CHL_DGT_CFG {
     private int dwStructLen;        //字节长度
 
     private C_DAU_CHL_CFG dau_chl;
-    private C_DAU_CHL_PRO_CFG dau_pro_chl;
+    private C_DAU_CHL_DGT_CFG dau_dgt_chl;
 
-    public DAU_CHL_PRO_CFG() {
+    public DAU_CHL_DGT_CFG() {
     }
 
     public int getDwStructLen() {
@@ -32,11 +32,11 @@ public class DAU_CHL_PRO_CFG {
         this.dau_chl = dau_chl;
     }
 
-    public C_DAU_CHL_PRO_CFG getDau_pro_chl() {
-        return dau_pro_chl;
+    public C_DAU_CHL_DGT_CFG getDau_dgt_chl() {
+        return dau_dgt_chl;
     }
 
-    public void setDau_pro_chl(C_DAU_CHL_PRO_CFG dau_pro_chl) {
-        this.dau_pro_chl = dau_pro_chl;
+    public void setDau_dgt_chl(C_DAU_CHL_DGT_CFG dau_dgt_chl) {
+        this.dau_dgt_chl = dau_dgt_chl;
     }
 }
