@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * ClassName: Procss_data
- * Description:
+ * Description: 工艺量检测数据
  *
  * @author 张文豪
  * @date 2021/1/13 15:21
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Procss_data {
     private int dwStructLen;
-    private long ID;
+    private long id;
     private int tagType;    //0:工艺量类型 1：数字开关量类型 2:过程开关量
     private int alarmStatus;    //报警状态
     private float value;
@@ -29,12 +29,12 @@ public class Procss_data {
         this.dwStructLen = dwStructLen;
     }
 
-    public long getID() {
-        return ID;
+    public long getId() {
+        return id;
     }
 
-    public void setID(long ID) {
-        this.ID = ID;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getTagType() {

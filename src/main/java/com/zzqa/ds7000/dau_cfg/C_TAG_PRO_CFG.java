@@ -16,7 +16,7 @@ public class C_TAG_PRO_CFG {
     private byte ev_act_range_type0;    //特征值参考测点0类型，0：全范围，1：转速，2：过程量，3：数字量，4：本身量
     private float ev_act_range_min0;
     private float ev_act_range_max0;
-    private float ev_act_range_type1;
+    private byte ev_act_range_type1;
     private float ev_act_range_min1;
     private float ev_act_range_max1;
     private byte hh_act;    //高高报设置有效
@@ -108,11 +108,11 @@ public class C_TAG_PRO_CFG {
         this.ev_act_range_max0 = ev_act_range_max0;
     }
 
-    public float getEv_act_range_type1() {
+    public byte getEv_act_range_type1() {
         return ev_act_range_type1;
     }
 
-    public void setEv_act_range_type1(float ev_act_range_type1) {
+    public void setEv_act_range_type1(byte ev_act_range_type1) {
         this.ev_act_range_type1 = ev_act_range_type1;
     }
 

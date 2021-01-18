@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * ClassName: Vib_data
- * Description:
+ * Description: 振动监测数据
  *
  * @author 张文豪
  * @date 2021/1/13 10:26

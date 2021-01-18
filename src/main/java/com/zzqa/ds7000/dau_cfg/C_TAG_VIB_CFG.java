@@ -144,7 +144,7 @@ public class C_TAG_VIB_CFG {
     private float lf_cursor;    //神经网络的频率游标低
     private float hf_cursor;    //神经网络的频率游标高
     private float ev_act_range_delta0;  //参考工艺量1变化量（0：不做变化存储）
-    private float ev_act_range_delta2;  //参考工艺量2变化量（0：不做变化存储）
+    private float ev_act_range_delta1;  //参考工艺量2变化量（0：不做变化存储）
     private float wave_act_range_delta0;    //参考工艺量1变化量
     private float wave_act_range_delta1;    //参考工艺量2变化量
     private float range_h;  //量纲范围高
@@ -1067,12 +1067,12 @@ public class C_TAG_VIB_CFG {
         this.ev_act_range_delta0 = ev_act_range_delta0;
     }
 
-    public float getEv_act_range_delta2() {
-        return ev_act_range_delta2;
+    public float getEv_act_range_delta1() {
+        return ev_act_range_delta1;
     }
 
-    public void setEv_act_range_delta2(float ev_act_range_delta2) {
-        this.ev_act_range_delta2 = ev_act_range_delta2;
+    public void setEv_act_range_delta1(float ev_act_range_delta1) {
+        this.ev_act_range_delta1 = ev_act_range_delta1;
     }
 
     public float getWave_act_range_delta0() {

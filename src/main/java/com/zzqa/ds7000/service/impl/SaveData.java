@@ -162,7 +162,7 @@ public class SaveData implements ISaveData {
                             monitor_data.put("procss_data", procss_data);
 
                             procss_data.setDwStructLen(dis.readInt());
-                            procss_data.setID(dis.readLong());
+                            procss_data.setId(dis.readLong());
 
                             procss_data.setTagType(dis.readByte());
                             procss_data.setAlarmStatus(dis.readByte());
@@ -260,7 +260,7 @@ public class SaveData implements ISaveData {
                 default:
                     break;
             }
-            //将封装好的数据(dataMap)传给cmc
+            //TODO 将封装好的数据(dataMap)传给cmc
 
             return 0;
         } catch (Exception e) {

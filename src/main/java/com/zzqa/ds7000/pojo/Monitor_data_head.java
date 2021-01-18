@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * ClassName: Monitor_data_head
- * Description:
+ * Description:检测数据头结构
  *
  * @author 张文豪
  * @date 2021/1/13 10:16
