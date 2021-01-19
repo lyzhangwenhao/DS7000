@@ -3,10 +3,7 @@ package com.zzqa.ds7000.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.zzqa.ds7000.DS7000Application;
 import com.zzqa.ds7000.dau_cfg.*;
-import com.zzqa.ds7000.pojo.Head7000;
-import com.zzqa.ds7000.pojo.Monitor_data_head;
-import com.zzqa.ds7000.pojo.Procss_data;
-import com.zzqa.ds7000.pojo.Vib_data;
+import com.zzqa.ds7000.pojo.*;
 import com.zzqa.ds7000.service.interfaces.ISaveData;
 import com.zzqa.ds7000.util.FormatTransfer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,50 +113,9 @@ public class SaveData implements ISaveData {
 
                             vib_data.setAppendWave(dis.readByte());
                             if (vib_data.getAppendWave() == 1){
-                                Map<String,Object> vib_wave_data = new HashMap<>();
+                                Vib_wave_data vib_wave_data = new Vib_wave_data();
                                 vib_data.setWave(vib_wave_data);
-
-                                vib_wave_data.put("dwStructLen", dis.readInt());
-                                int freq_type = dis.readByte();
-                                int cycles = 0;
-                                int samples = 0;
-                                int totalSamples = 0;
-                                vib_wave_data.put("freq_type",freq_type);
-                                if (freq_type == 0){
-                                    cycles = dis.readShort();
-                                    samples = dis.readShort();
-                                    vib_wave_data.put("cycles", cycles);
-                                    vib_wave_data.put("samples", samples);
-                                } else if (freq_type == 1){
-                                    totalSamples = dis.readInt();
-                                    vib_wave_data.put("sampleFreq", dis.readFloat());
-                                }
-                                int wave_mode = dis.readByte();
-                                if (wave_mode == 0 || wave_mode == 255){
-                                    vib_wave_data.put("scale", dis.readFloat());
-                                    int l = dis.readShort();
-                                    vib_wave_data.put("L", l);
-                                    byte[] point = new byte[4*l];
-                                    dis.read(point);
-                                    vib_wave_data.put("point", point);
-                                } else if (wave_mode == 1 || wave_mode == 2){
-                                    //TODO 协议中为unit，不知道什么意思（compressedWaveLen）
-                                    int compressedWaveLen = dis.readInt();
-                                    vib_wave_data.put("compressed_wave_len", compressedWaveLen);
-                                    vib_wave_data.put("wave_scale", dis.readFloat());
-                                    byte[] compressedWare = new byte[compressedWaveLen];
-                                    dis.read(compressedWare);
-                                    vib_wave_data.put("compressed_wave", compressedWare);
-                                } else if (wave_mode == 3) {
-                                    vib_wave_data.put("wave_scale", dis.readFloat());
-                                    byte[] wave = new byte[totalSamples];
-                                    dis.read(wave);
-                                    vib_wave_data.put("wave", wave);
-                                }
-                                int softwareVer = head7000.getSoftwareVer();
-                                if (softwareVer >= 2){
-                                    vib_wave_data.put("windows_type", dis.readByte());
-                                }
+                                readWave(dis, vib_wave_data, head7000);
                             }
                         }
                         //process_data
@@ -214,50 +170,9 @@ public class SaveData implements ISaveData {
                         key_wave.put("speedID", dis.readLong());
                         key_wave.put("dataTime", dis.readLong());
 
-                        Map<String,Object> vib_wave_data = new HashMap<>();
+                        Vib_wave_data vib_wave_data = new Vib_wave_data();
                         key_wave.put("vib_wave_data",vib_wave_data);
-
-                        vib_wave_data.put("dwStructLen", dis.readInt());
-                        int freq_type = dis.readByte();
-                        int cycles = 0;
-                        int samples = 0;
-                        int totalSamples = 0;
-                        vib_wave_data.put("freq_type",freq_type);
-                        if (freq_type == 0){
-                            cycles = dis.readShort();
-                            samples = dis.readShort();
-                            vib_wave_data.put("cycles", cycles);
-                            vib_wave_data.put("samples", samples);
-                        } else if (freq_type == 1){
-                            totalSamples = dis.readInt();
-                            vib_wave_data.put("sampleFreq", dis.readFloat());
-                        }
-                        int wave_mode = dis.readByte();
-                        if (wave_mode == 0 || wave_mode == 255){
-                            vib_wave_data.put("scale", dis.readFloat());
-                            int l = dis.readShort();
-                            vib_wave_data.put("L", l);
-                            byte[] point = new byte[4*l];
-                            dis.read(point);
-                            vib_wave_data.put("point", point);
-                        } else if (wave_mode == 1 || wave_mode == 2){
-                            //TODO 协议中为unit，不知道什么意思（compressedWaveLen）
-                            int compressedWaveLen = dis.readInt();
-                            vib_wave_data.put("compressed_wave_len", compressedWaveLen);
-                            vib_wave_data.put("wave_scale", dis.readFloat());
-                            byte[] compressedWare = new byte[compressedWaveLen];
-                            dis.read(compressedWare);
-                            vib_wave_data.put("compressed_wave", compressedWare);
-                        } else if (wave_mode == 3) {
-                            vib_wave_data.put("wave_scale", dis.readFloat());
-                            byte[] wave = new byte[totalSamples];
-                            dis.read(wave);
-                            vib_wave_data.put("wave", wave);
-                        }
-                        int softwareVer = head7000.getSoftwareVer();
-                        if (softwareVer >= 2){
-                            vib_wave_data.put("windows_type", dis.readByte());
-                        }
+                        readWave(dis, vib_wave_data, head7000);
 
                         key_wave.put("speed", dis.readFloat());
                     }
@@ -809,6 +724,61 @@ public class SaveData implements ISaveData {
             } catch (IOException e) {
                 DS7000Application.LOGGER.error(Thread.currentThread().getStackTrace()[1].getClassName(), e);
             }
+        }
+    }
+
+    /**
+     * 读取波形数据
+     *
+     * @param dis           DataInputStream
+     * @param vib_wave_data Vib_wave_data
+     * @param head7000      Head7000
+     * @throws IOException 抛出IO异常
+     */
+    private void readWave(DataInputStream dis, Vib_wave_data vib_wave_data, Head7000 head7000) throws IOException {
+        vib_wave_data.setDwStructLen(dis.readInt());
+        vib_wave_data.setFreq_type(dis.readByte());
+        if (vib_wave_data.getFreq_type() == 0) {
+            vib_wave_data.setCycles(dis.readShort());
+            vib_wave_data.setSamples(dis.readShort());
+        } else if (vib_wave_data.getFreq_type() == 1) {
+            vib_wave_data.setTotalSamples(dis.readInt());
+            vib_wave_data.setSampleFreq(dis.readFloat());
+        }
+        vib_wave_data.setWave_mode(dis.readByte());
+        if (vib_wave_data.getWave_mode() == 0) {
+            vib_wave_data.setScale1(dis.readFloat());
+            vib_wave_data.setL1(dis.readShort());
+            byte[] point1 = new byte[4 * vib_wave_data.getL1()];
+            dis.read(point1);
+            vib_wave_data.setPoint1(point1);
+        } else if (vib_wave_data.getWave_mode() == 1) {
+            vib_wave_data.setCompressedWaveLen1(dis.readInt());
+            vib_wave_data.setWaveScale1(dis.readFloat());
+            byte[] bytes = new byte[vib_wave_data.getCompressedWaveLen1()];
+            dis.read(bytes);
+            vib_wave_data.setCompressedWave1(bytes);
+        } else if (vib_wave_data.getWave_mode() == 2) {
+            vib_wave_data.setCompressedWaveLen2(dis.readInt());
+            vib_wave_data.setWaveScale2(dis.readFloat());
+            byte[] bytes = new byte[vib_wave_data.getCompressedWaveLen2()];
+            dis.read(bytes);
+            vib_wave_data.setCompressedWave2(bytes);
+        } else if (vib_wave_data.getWave_mode() == 3) {
+            vib_wave_data.setWaveScale3(dis.readFloat());
+            byte[] bytes = new byte[vib_wave_data.getTotalSamples()];
+            dis.read(bytes);
+            vib_wave_data.setWave(bytes);
+        } else if (vib_wave_data.getWave_mode() == 255) {
+            vib_wave_data.setScale2(dis.readFloat());
+            vib_wave_data.setL2(dis.readShort());
+            byte[] bytes = new byte[4 * vib_wave_data.getL2()];
+            dis.read(bytes);
+            vib_wave_data.setPoint2(bytes);
+        }
+        int softwareVer = head7000.getSoftwareVer();
+        if (softwareVer >= 2) {
+            vib_wave_data.setWindowsType(dis.readByte());
         }
     }
 

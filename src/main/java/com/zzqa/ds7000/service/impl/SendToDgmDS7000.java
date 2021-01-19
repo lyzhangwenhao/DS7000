@@ -122,6 +122,7 @@ public class SendToDgmDS7000 implements ISendToDgm {
                 head7000.setProtocolID(3);
                 data = getDgmConfig(head7000, response);
                 conn(response, data, head7000, 1);
+                update_status.set(0);
             }
             if (upgrade_status.get() == 1){
                 head7000.setProtocolID(8);

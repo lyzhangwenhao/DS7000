@@ -45,8 +45,12 @@ class Ds7000ApplicationTests {
     @Test
     void test02(){
         DAU_CHL_VIB_CFG vib_chl = dau_all_cfg.getVib_chl();
-        vib_chl.setDwStructLen(123);
-        setDau(vib_chl);
+//        vib_chl.setDwStructLen(123);
+//        setDau(vib_chl);
+        DAU_CHL_VIB_CFG dau_chl_vib_cfg = new DAU_CHL_VIB_CFG();
+        dau_chl_vib_cfg.setDwStructLen(1);
+        vib_chl = dau_chl_vib_cfg;
+        dau_all_cfg.setVib_chl(dau_chl_vib_cfg);
         System.out.println(dau_all_cfg.getVib_chl().getDwStructLen());
     }
 

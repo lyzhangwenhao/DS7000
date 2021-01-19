@@ -31,7 +31,7 @@ public class ServerController {
         return (JSON) JSON.toJSON(info_map);
     }
     /**
-     * 升级DAU
+     * 操作DAU
      * @param map
      * @return
      */

@@ -39,7 +39,7 @@ public class Vib_data {
 
     private byte appendWave;    //是否带波形，1:带波形，0:不带波形
 
-    private Map<String,Object> wave;     //appendWave=1时有效，波形数据
+    private Vib_wave_data wave;     //appendWave=1时有效，波形数据
 
     public Vib_data() {
     }
@@ -228,11 +228,11 @@ public class Vib_data {
         this.appendWave = appendWave;
     }
 
-    public Map<String, Object> getWave() {
+    public Vib_wave_data getWave() {
         return wave;
     }
 
-    public void setWave(Map<String, Object> wave) {
+    public void setWave(Vib_wave_data wave) {
         this.wave = wave;
     }
 }
