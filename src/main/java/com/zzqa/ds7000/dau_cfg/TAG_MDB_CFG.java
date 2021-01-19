@@ -1,5 +1,8 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: TAG_MDB_CFG
  * Description: Modbus测点数据结构描述
@@ -7,12 +10,16 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/15 15:44
  */
+@Component
 public class TAG_MDB_CFG {
     private int dwStructLen;
 
+    @Autowired
     private C_SYS_NODE_CFG node_cfg;
+    @Autowired
     private C_TAG_COMMON tag_comm;
 
+    @Autowired
     private C_TAG_MDB_CFG modbus_tag;
 
     public TAG_MDB_CFG() {

@@ -40,11 +40,18 @@ class Ds7000ApplicationTests {
         }
     }
 
+    @Autowired
+    private DAU_ALL_CFG dau_all_cfg;
     @Test
     void test02(){
-        DAU_ALL_CFG dauAllCfg = new DAU_ALL_CFG();
-        DAU_CHL_VIB_CFG vib_chl = dauAllCfg.getVib_chl();
-        System.out.println(vib_chl);
+        DAU_CHL_VIB_CFG vib_chl = dau_all_cfg.getVib_chl();
+        vib_chl.setDwStructLen(123);
+        setDau(vib_chl);
+        System.out.println(dau_all_cfg.getVib_chl().getDwStructLen());
+    }
+
+    void setDau(DAU_CHL_VIB_CFG vib_chl){
+        vib_chl.setDwStructLen(234);
     }
 
 }

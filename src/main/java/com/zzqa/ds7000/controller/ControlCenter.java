@@ -85,6 +85,12 @@ public class ControlCenter {
 //                    iSendToDgm.conn(response, null, head7000, 0);
                     break;
                 case 10:    //DAU向服务器传递DAU设置，服务器更新振动测点的GAP电压
+                    DS7000Application.LOGGER.info(Thread.currentThread().getStackTrace()[1].getClassName() + ":传递采集器设置");
+                    //向cmc传递检测数据
+                    code = iSaveData.saveData(head7000);
+                    //返回Head
+                    head7000.setErrorCode(code);
+                    iSendToDgm.conn(response, null, head7000, 0);
                     break;
                 case 255:   //心跳包协议，发一个协议头
                     DS7000Application.LOGGER.info(Thread.currentThread().getStackTrace()[1].getClassName()+":心跳包");

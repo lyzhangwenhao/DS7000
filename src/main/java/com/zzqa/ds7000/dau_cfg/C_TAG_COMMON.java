@@ -1,5 +1,7 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: C_TAG_COMMON
  * Description: 测点公共信息表
@@ -7,6 +9,7 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/15 11:11
  */
+@Component
 public class C_TAG_COMMON {
     long id_node;   //外键，C_node_cfg.id_node
     int id_rungroup;    //测点所属组 null(-1)时表示无组

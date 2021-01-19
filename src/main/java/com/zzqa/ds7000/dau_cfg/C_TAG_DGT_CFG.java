@@ -1,5 +1,7 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: C_TAG_DGT_CFG
  * Description: 计数测点（数字通道）信息表
@@ -7,6 +9,7 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/15 11:48
  */
+@Component
 public class C_TAG_DGT_CFG {
     private long id_node;    //外键
     private int id_dauchl;      //外键，引用的数字通道通道id

@@ -1,5 +1,8 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: RUN_GROUP_CFG
  * Description: 测量组数据结构
@@ -7,8 +10,10 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/15 16:03
  */
+@Component
 public class RUN_GROUP_CFG {
     private int dwStructLen;
+    @Autowired
     private C_RUN_GROUP run_group;
 
     public RUN_GROUP_CFG() {

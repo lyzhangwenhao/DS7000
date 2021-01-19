@@ -1,5 +1,7 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: C_DAU_CHL_CFG
  * Description: 通道公共信息表
@@ -7,6 +9,7 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/14 17:09
  */
+@Component
 public class C_DAU_CHL_CFG {
     private int id_dauchl;  //主键
     private int id_dau; //外键

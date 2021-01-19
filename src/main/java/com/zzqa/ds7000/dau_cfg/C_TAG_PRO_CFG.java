@@ -1,5 +1,7 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: C_TAG_PRO_CFG
  * Description: 工艺量测点信息表
@@ -7,6 +9,7 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/15 15:17
  */
+@Component
 public class C_TAG_PRO_CFG {
     private long id_node;
     private int id_dauchl;

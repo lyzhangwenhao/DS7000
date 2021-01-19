@@ -1,5 +1,7 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: C_RUN_GROUP
  * Description: 测点同步采集组信息表
@@ -7,6 +9,7 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/15 16:07
  */
+@Component
 public class C_RUN_GROUP {
     private int id_rungroup;
     private String name;

@@ -1,5 +1,8 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: DAU_CHL_PRO_CFG
  * Description: 过程量通道信息数据结构描述
@@ -7,10 +10,13 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/14 17:51
  */
+@Component
 public class DAU_CHL_PRO_CFG {
     private int dwStructLen;        //字节长度
 
+    @Autowired
     private C_DAU_CHL_CFG dau_chl;
+    @Autowired
     private C_DAU_CHL_PRO_CFG dau_pro_chl;
 
     public DAU_CHL_PRO_CFG() {

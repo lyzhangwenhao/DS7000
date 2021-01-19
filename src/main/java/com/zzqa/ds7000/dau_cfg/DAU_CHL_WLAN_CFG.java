@@ -1,5 +1,8 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: DAU_CHL_WLAN_CFG
  * Description: 网口通道信息数据结构
@@ -7,9 +10,12 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/15 16:27
  */
+@Component
 public class DAU_CHL_WLAN_CFG {
     private int dwStructLen;
+    @Autowired
     private C_DAU_CHL_CFG dau_chl;
+    @Autowired
     private C_DAU_CHL_WLAN_CFG dau_wlan_chl;
 
     public DAU_CHL_WLAN_CFG() {

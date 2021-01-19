@@ -1,5 +1,7 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: C_DAU_CHL_COM_CFG
  * Description: 串口通道信息表
@@ -7,6 +9,7 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/15 10:00
  */
+@Component
 public class C_DAU_CHL_COM_CFG {
     private int id_dauchl;      //外键
     private int chl_no;     //通道的硬件编号，大于0

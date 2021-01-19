@@ -1,5 +1,7 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: C_TAG_SPEED_CFG
  * Description: 转速测点（数字通道）信息表
@@ -7,6 +9,7 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/15 11:23
  */
+@Component
 public class C_TAG_SPEED_CFG {
     private long id_node;       //外键
     private int id_dauchl;      //外键

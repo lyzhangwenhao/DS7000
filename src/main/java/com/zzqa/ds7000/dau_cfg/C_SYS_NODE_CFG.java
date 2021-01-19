@@ -1,5 +1,7 @@
 package com.zzqa.ds7000.dau_cfg;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: TAG_COMMON_CFG
  * Description: 系统节点表
@@ -7,6 +9,7 @@ package com.zzqa.ds7000.dau_cfg;
  * @author 张文豪
  * @date 2021/1/15 10:30
  */
+@Component
 public class C_SYS_NODE_CFG {
     /**
      * 主键，节点ID，大于等于0，节点的编码方式：
